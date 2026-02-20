@@ -89,8 +89,16 @@ class GeminiService {
   static String _buildPrompt(List<Map<String, dynamic>> tasks) {
     final buffer = StringBuffer();
     buffer.writeln(
-        "Buat jadwal optimal untuk daftar tugas berikut. Susun berdasarkan prioritas (Tinggi > Sedang > Rendah) dan durasi. "
-        "Keluarkan hasil dalam format Markdown yang rapi (boleh tabel).\n");
+        "Kamu adalah asisten penjadwalan. Buat jadwal yang BENAR-BENAR konkret dan bisa langsung diikuti.\n"
+        "Aturan:\n"
+        "- Urutkan berdasarkan prioritas: Tinggi > Sedang > Rendah.\n"
+        "- Untuk prioritas yang sama, dahulukan durasi lebih pendek.\n"
+        "- Jadwal dimulai dari 08:00.\n"
+        "- Setiap tugas harus punya jam mulai dan jam selesai (format HH:mm).\n"
+        "- Tidak boleh ada tugas yang hilang.\n"
+        "- Output WAJIB hanya 1 tabel Markdown, tanpa paragraf pembuka/penutup.\n"
+        "Kolom tabel: | No | Tugas | Prioritas | Durasi (menit) | Mulai | Selesai |\n"
+        "\nDaftar tugas:\n");
 
     for (final task in tasks) {
       final name = (task["name"] ?? "").toString();
